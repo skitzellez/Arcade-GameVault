@@ -32,8 +32,10 @@ copy /y ..\deps\dxvk-src\build64\src\d3d9\d3d9.dll pkg\x64\ >nul || exit /b 1
 copy /y ..\deps\mesa-arcade\build-arcade-dzn\src\microsoft\vulkan\vulkan_dzn.dll pkg\ >nul || exit /b 1
 rem Microsoft's DXIL signer (redistributable, the same file xemu ships): Dozen needs it to start
 copy /y ..\XemuUWP\pkg\dxil.dll pkg\ >nul || exit /b 1
-rem (owner-console tests only, not for release: Microsoft redistributables from this PC, mapped by the loader)
+rem Microsoft redistributables (DirectX June 2010 + VC2010) from this PC, mapped by the loader
 for %%d in (D3DX9_43.dll D3DCompiler_43.dll d3dx11_43.dll X3DAudio1_7.dll XAPOFX1_5.dll msvcr100.dll msvcp100.dll) do if exist C:\Windows\System32\%%d copy /y C:\Windows\System32\%%d pkg\x64\ >nul
+rem 32-bit DirectX helpers older games expect but often leave out: d3dx9_27 (Battle Fantasia), d3dx9_42 + d3dcompiler_42 (Caladrius AC)
+for %%d in (d3dx9_27.dll D3DX9_42.dll D3DCompiler_42.dll) do copy /y C:\Windows\SysWOW64\%%d pkg\x86\ >nul || exit /b 1
 if not exist dist mkdir dist
 if exist dist\ArcadeLoader_x64.appx del dist\ArcadeLoader_x64.appx
 rem TeknoParrot game profiles (GPL-3.0, TeknoParrotUI 2018): the controls, mapped by controls.cpp
