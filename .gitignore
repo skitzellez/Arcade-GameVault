@@ -1,0 +1,10 @@
+out/
+dist/
+pkg/*.exe
+pkg/programs/
+pkg/ArcadeLoader.exp
+pkg/ArcadeLoader.lib
+pkg/dxil.dll
+pkg/vulkan_dzn.dll
+pkg/x64/
+pkg/x86/
